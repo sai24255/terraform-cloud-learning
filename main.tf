@@ -1,13 +1,24 @@
 terraform {
   cloud {
     organization = "sai-org1"
-
     workspaces {
       name = "azure-demo-dev"
     }
   }
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0"
+    }
+  }
 }
 
-output "message" {
-  value = "Terraform Cloud remote execution is ready"
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_resource_group" "rg" {
+  name     = "rg-oidc-test"
+  location = "East US"
 }
